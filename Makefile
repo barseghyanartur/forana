@@ -36,7 +36,7 @@ install: venv
 db-create-tables: venv
 	$(VENV_BIN)/python db.py
 
-run: venv
+run: venv db-create-tables
 	$(VENV_BIN)/uvicorn api:app --reload
 
 test: venv
