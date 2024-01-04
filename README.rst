@@ -20,6 +20,12 @@ Running
 
     make run
 
+Insights
+========
+- API is running on http://localhost:8000/api/
+- The OpenAPI is available on http://localhost:8000/api/docs/
+- The admin interface is available on http://localhost:8000/admin/
+
 Testing
 =======
 .. code-block:: sh
