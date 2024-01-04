@@ -36,10 +36,10 @@ install: venv
 db-create-tables: venv
 	$(VENV_BIN)/python db.py
 
-run-api: venv
+run: venv
 	$(VENV_BIN)/uvicorn api:app --reload
 
-test-api: venv
+test: venv
 	$(VENV_BIN)/python -m unittest test_api
 
 pytest: venv
