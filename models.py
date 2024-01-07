@@ -14,15 +14,14 @@ class Post(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     title: str
-    published: bool = True
+    complete: bool = True
 
 
 class PostCreate(SQLModel, table=False):
     """This is the model, used mainly for serialization of inputs on create."""
 
     title: str
-    published: bool = True
-    # sticky: bool = False
+    complete: bool = True
 
 
 class PostUpdate(PostCreate):
