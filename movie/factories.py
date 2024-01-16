@@ -5,6 +5,7 @@ from fake import FACTORY, FAKER, SQLAlchemyModelFactory, PreSave
 from db import SESSION, SessionLocal
 from models import Movie
 
+
 GENRES = (
     "Action",
     "Adventure",

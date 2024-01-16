@@ -18,7 +18,7 @@ venv/
 /builddocs.zip
 /build/
 /dist/
-forana-*.egg-info
+forana*.egg-info
 db.sqlite3
 test.db
 test_test.db
