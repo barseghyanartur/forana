@@ -7,7 +7,7 @@ from sqlmodel import Session, SQLModel, create_engine
 
 from api import app  # noqa
 from db import get_db  # noqa
-from models import Post  # noqa
+from models import Item  # noqa
 
 __all__ = ("ApiTestCase",)
 
@@ -49,7 +49,7 @@ class ApiTestCase(unittest.TestCase):
     def test_post(self) -> None:
         """Test HTTP POST method."""
         response = self.client.post(
-            "/api/post",
+            "/api/item",
             json={
                 "title": FAKER.sentence(),
                 "published": FAKER.pybool(),
@@ -63,15 +63,15 @@ class ApiTestCase(unittest.TestCase):
             "title": FAKER.sentence(),
             "published": FAKER.pybool(),
         }
-        post = Post(**data)
+        item = Item(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(item)
             session.commit()
-            session.refresh(post)
+            session.refresh(item)
 
-        response = self.client.get(f"/api/post/{post.id}")
+        response = self.client.get(f"/api/item/{item.id}")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(post.title, data["title"])
+        self.assertEqual(item.title, data["title"])
 
     def test_get_all(self) -> None:
         """Test HTTP GET method (retrieve all records option)."""
@@ -79,13 +79,13 @@ class ApiTestCase(unittest.TestCase):
             "title": FAKER.sentence(),
             "published": FAKER.pybool(),
         }
-        post = Post(**data)
+        item = Item(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(item)
             session.commit()
-            session.refresh(post)
+            session.refresh(item)
 
-        response = self.client.get("/api/post")
+        response = self.client.get("/api/item")
         response_data = response.json()
 
         self.assertEqual(response.status_code, 200)
@@ -98,18 +98,18 @@ class ApiTestCase(unittest.TestCase):
             "title": FAKER.sentence(),
             "published": FAKER.pybool(),
         }
-        post = Post(**data)
+        item = Item(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(item)
             session.commit()
-            session.refresh(post)
+            session.refresh(item)
 
-        response = self.client.delete(f"/api/post/{post.id}")
+        response = self.client.delete(f"/api/item/{item.id}")
         self.assertEqual(response.status_code, 200)
 
         with Session(TEST_ENGINE) as session:
-            deleted_post = session.get(Post, post.id)
-            self.assertIsNone(deleted_post)
+            deleted_item = session.get(Item, item.id)
+            self.assertIsNone(deleted_item)
 
     def test_update(self) -> None:
         """ "Test HTTP PUT method."""
@@ -117,22 +117,22 @@ class ApiTestCase(unittest.TestCase):
             "title": FAKER.sentence(),
             "published": FAKER.pybool(),
         }
-        post = Post(**data)
+        item = Item(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(item)
             session.commit()
-            session.refresh(post)
+            session.refresh(item)
 
         new_data = {
             "title": FAKER.sentence(),
             "published": FAKER.pybool(),
         }
         response = self.client.put(
-            f"/api/post/{post.id}",
+            f"/api/item/{item.id}",
             json=new_data,
         )
         self.assertEqual(response.status_code, 200)
 
         with Session(TEST_ENGINE) as session:
-            updated_post = session.get(Post, post.id)
+            updated_post = session.get(Item, item.id)
             self.assertEqual(updated_post.title, new_data["title"])
