@@ -1,3 +1,4 @@
+import random
 import unittest
 
 from fake import FAKER
@@ -7,7 +8,8 @@ from sqlmodel import Session, SQLModel, create_engine
 
 from api import app  # noqa
 from db import get_db  # noqa
-from models import Post  # noqa
+from factories import GENRES
+from models import Movie  # noqa
 
 __all__ = ("ApiTestCase",)
 
@@ -49,10 +51,16 @@ class ApiTestCase(unittest.TestCase):
     def test_post(self) -> None:
         """Test HTTP POST method."""
         response = self.client.post(
-            "/api/post",
+            "/api/movie",
             json={
                 "title": FAKER.sentence(),
-                "published": FAKER.pybool(),
+                "year": FAKER.pyint(min_value=1900, max_value=2024),
+                "runtime": FAKER.pyint(min_value=15, max_value=360),
+                "genres": random.sample(GENRES, 5),
+                "director": FAKER.name(),
+                "actors": [FAKER.name() for _ in range(5)],
+                "plot": FAKER.text(),
+                "poster_url": FAKER.image_url(),
             },
         )
         self.assertEqual(response.status_code, 200)
@@ -61,31 +69,43 @@ class ApiTestCase(unittest.TestCase):
         """Test HTTP GET method (retrieve a single record option)."""
         data = {
             "title": FAKER.sentence(),
-            "published": FAKER.pybool(),
+            "year": FAKER.pyint(min_value=1900, max_value=2024),
+            "runtime": FAKER.pyint(min_value=15, max_value=360),
+            "genres": random.sample(GENRES, 5),
+            "director": FAKER.name(),
+            "actors": [FAKER.name() for _ in range(5)],
+            "plot": FAKER.text(),
+            "poster_url": FAKER.image_url(),
         }
-        post = Post(**data)
+        movie = Movie(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(movie)
             session.commit()
-            session.refresh(post)
+            session.refresh(movie)
 
-        response = self.client.get(f"/api/post/{post.id}")
+        response = self.client.get(f"/api/movie/{movie.id}")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(post.title, data["title"])
+        self.assertEqual(movie.title, data["title"])
 
     def test_get_all(self) -> None:
         """Test HTTP GET method (retrieve all records option)."""
         data = {
             "title": FAKER.sentence(),
-            "published": FAKER.pybool(),
+            "year": FAKER.pyint(min_value=1900, max_value=2024),
+            "runtime": FAKER.pyint(min_value=15, max_value=360),
+            "genres": random.sample(GENRES, 5),
+            "director": FAKER.name(),
+            "actors": [FAKER.name() for _ in range(5)],
+            "plot": FAKER.text(),
+            "poster_url": FAKER.image_url(),
         }
-        post = Post(**data)
+        movie = Movie(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(movie)
             session.commit()
-            session.refresh(post)
+            session.refresh(movie)
 
-        response = self.client.get("/api/post")
+        response = self.client.get("/api/movie")
         response_data = response.json()
 
         self.assertEqual(response.status_code, 200)
@@ -96,43 +116,61 @@ class ApiTestCase(unittest.TestCase):
         """Test HTTP DELETE method."""
         data = {
             "title": FAKER.sentence(),
-            "published": FAKER.pybool(),
+            "year": FAKER.pyint(min_value=1900, max_value=2024),
+            "runtime": FAKER.pyint(min_value=15, max_value=360),
+            "genres": random.sample(GENRES, 5),
+            "director": FAKER.name(),
+            "actors": [FAKER.name() for _ in range(5)],
+            "plot": FAKER.text(),
+            "poster_url": FAKER.image_url(),
         }
-        post = Post(**data)
+        movie = Movie(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(movie)
             session.commit()
-            session.refresh(post)
+            session.refresh(movie)
 
-        response = self.client.delete(f"/api/post/{post.id}")
+        response = self.client.delete(f"/api/movie/{movie.id}")
         self.assertEqual(response.status_code, 200)
 
         with Session(TEST_ENGINE) as session:
-            deleted_post = session.get(Post, post.id)
-            self.assertIsNone(deleted_post)
+            deleted_movie = session.get(Movie, movie.id)
+            self.assertIsNone(deleted_movie)
 
     def test_update(self) -> None:
-        """ "Test HTTP PUT method."""
+        """Test HTTP PUT method."""
         data = {
             "title": FAKER.sentence(),
-            "published": FAKER.pybool(),
+            "year": FAKER.pyint(min_value=1900, max_value=2024),
+            "runtime": FAKER.pyint(min_value=15, max_value=360),
+            "genres": random.sample(GENRES, 5),
+            "director": FAKER.name(),
+            "actors": [FAKER.name() for _ in range(5)],
+            "plot": FAKER.text(),
+            "poster_url": FAKER.image_url(),
         }
-        post = Post(**data)
+        movie = Movie(**data)
         with Session(TEST_ENGINE) as session:
-            session.add(post)
+            session.add(movie)
             session.commit()
-            session.refresh(post)
+            session.refresh(movie)
 
         new_data = {
             "title": FAKER.sentence(),
-            "published": FAKER.pybool(),
+            "year": FAKER.pyint(min_value=1900, max_value=2024),
+            "runtime": FAKER.pyint(min_value=15, max_value=360),
+            "genres": random.sample(GENRES, 5),
+            "director": FAKER.name(),
+            "actors": [FAKER.name() for _ in range(5)],
+            "plot": FAKER.text(),
+            "poster_url": FAKER.image_url(),
         }
         response = self.client.put(
-            f"/api/post/{post.id}",
+            f"/api/movie/{movie.id}",
             json=new_data,
         )
         self.assertEqual(response.status_code, 200)
 
         with Session(TEST_ENGINE) as session:
-            updated_post = session.get(Post, post.id)
-            self.assertEqual(updated_post.title, new_data["title"])
+            updated_movie = session.get(Movie, movie.id)
+            self.assertEqual(updated_movie.title, new_data["title"])
