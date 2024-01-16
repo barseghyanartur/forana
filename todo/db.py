@@ -4,7 +4,7 @@ Database module. To create database run python db.py.
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel, create_engine
 
-from models import Post  # noqa
+from models import Item  # noqa
 
 __all__ = (
     "DATABASE_URL",

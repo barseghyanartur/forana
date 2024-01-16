@@ -3,13 +3,13 @@ from typing import Optional
 from sqlmodel import Field, SQLModel
 
 __all__ = (
-    "Post",
-    "PostCreate",
-    "PostUpdate",
+    "Item",
+    "ItemCreate",
+    "ItemUpdate",
 )
 
 
-class Post(SQLModel, table=True):
+class Item(SQLModel, table=True):
     """This is the model connected to the database."""
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -17,12 +17,12 @@ class Post(SQLModel, table=True):
     complete: bool = True
 
 
-class PostCreate(SQLModel, table=False):
+class ItemCreate(SQLModel, table=False):
     """This is the model, used mainly for serialization of inputs on create."""
 
     title: str
     complete: bool = True
 
 
-class PostUpdate(PostCreate):
+class ItemUpdate(ItemCreate):
     """This is the model, used mainly for serialization of inputs on update."""

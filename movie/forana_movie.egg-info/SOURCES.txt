@@ -1,0 +1,8 @@
+README.rst
+pyproject.toml
+alembic/env.py
+forana_movie.egg-info/PKG-INFO
+forana_movie.egg-info/SOURCES.txt
+forana_movie.egg-info/dependency_links.txt
+forana_movie.egg-info/requires.txt
+forana_movie.egg-info/top_level.txt

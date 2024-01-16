@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: forana-movie
+Version: 0.1
+Summary: Simple Movie API for Ana Gardi.
+Author-email: Artur Barseghyan <artur.barseghyan@gmail.com>
+License: MIT
+Description-Content-Type: text/x-rst
+Requires-Dist: fastapi
+Requires-Dist: sqlmodel
+Requires-Dist: fastapi-crudrouter
+Requires-Dist: fake.py
+Requires-Dist: uvicorn
+Requires-Dist: starlette-admin
+Requires-Dist: sqlalchemy<2.0
+Provides-Extra: all
+Requires-Dist: forana[dev,docs,test]; extra == "all"
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: detect-secrets; extra == "dev"
+Requires-Dist: doc8; extra == "dev"
+Requires-Dist: ipython; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pip-tools; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Requires-Dist: httpx; extra == "test"
+Provides-Extra: docs
+
+======
+forana
+======
+.. External references
+
+.. _Ana Gardi: https://github.com/anagardi/
+
+Simple REST API for `Ana Gardi`_.
+
+Installation
+============
+
+.. code-block:: sh
+
+    make install
+
+Running
+=======
+.. code-block:: sh
+
+    make run
+
+Insights
+========
+- API is running on http://localhost:8000/api/
+- The OpenAPI is available on http://localhost:8000/api/docs/
+- The admin interface is available on http://localhost:8000/admin/
+
+Testing
+=======
+.. code-block:: sh
+
+    make test
+
+License
+=======
+MIT
+
+Author
+======
+
+Artur Barseghyan <artur.barseghyan@gmail.com>

@@ -5,7 +5,7 @@ from sqlmodel import create_engine
 from starlette_admin.contrib.sqla import Admin, ModelView
 
 from db import DATABASE_URL, get_db
-from models import Post, PostCreate, PostUpdate
+from models import Movie, MovieCreate, MovieUpdate
 
 __all__ = ("app",)
 
@@ -27,10 +27,10 @@ app.add_middleware(
 
 app.include_router(
     CRUDRouter(
-        schema=Post,
-        create_schema=PostCreate,
-        update_schema=PostUpdate,
-        db_model=Post,
+        schema=Movie,
+        create_schema=MovieCreate,
+        update_schema=MovieUpdate,
+        db_model=Movie,
         db=get_db,
     ),
     prefix="/api",
@@ -41,7 +41,7 @@ ENGINE = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 admin = Admin(ENGINE, title="Example: SQLAlchemy")
 
 # Add view
-admin.add_view(ModelView(Post))
+admin.add_view(ModelView(Movie))
 
 # Mount admin to your app
 admin.mount_to(app)
@@ -49,4 +49,4 @@ admin.mount_to(app)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"status": "OK"}

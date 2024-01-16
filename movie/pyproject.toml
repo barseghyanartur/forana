@@ -1,12 +1,13 @@
 [project]
-name = "forana"
-description = "Simple API for Ana Gardi."
+name = "forana-movie"
+description = "Simple Movie API for Ana Gardi."
 readme = "README.rst"
 version = "0.1"
 dependencies = [
     "fastapi",
     "sqlmodel",
     "fastapi-crudrouter",
+    "fake.py",
     "uvicorn",
     "starlette-admin",
     "sqlalchemy<2.0",
@@ -28,7 +29,6 @@ dev = [
     "ruff",
 ]
 test = [
-    "fake.py",
     "pytest",
     "pytest-cov",
     "httpx",
