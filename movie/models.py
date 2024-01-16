@@ -1,6 +1,6 @@
-from typing import Optional, List
+from typing import List, Optional
 
-from sqlmodel import Field, SQLModel, JSON, Column
+from sqlmodel import Column, Field, JSON, SQLModel
 
 __all__ = (
     "Movie",

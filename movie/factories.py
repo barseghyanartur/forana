@@ -1,8 +1,7 @@
 import random
-from copy import deepcopy
-from fake import FACTORY, FAKER, SQLAlchemyModelFactory, PreSave
+from fake import FACTORY, FAKER, PreSave, SQLAlchemyModelFactory
 
-from db import SESSION, SessionLocal
+from db import SessionLocal
 from models import Movie
 
 

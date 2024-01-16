@@ -1,7 +1,7 @@
 """
 Database module. To create database run python db.py.
 """
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel, create_engine
 
 from models import Movie  # noqa
@@ -9,7 +9,6 @@ from models import Movie  # noqa
 __all__ = (
     "DATABASE_URL",
     "ENGINE",
-    "SESSION",
     "SessionLocal",
     "create_tables",
     "get_db",
@@ -26,7 +25,7 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=ENGINE,
 )
-SESSION = scoped_session(sessionmaker(bind=ENGINE))
+
 
 def create_tables():
     """Create tables."""
