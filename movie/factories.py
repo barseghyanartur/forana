@@ -4,6 +4,13 @@ from fake import FACTORY, FAKER, PreSave, SQLAlchemyModelFactory
 from db import SessionLocal
 from models import Movie
 
+__all__ = (
+    "GENRES",
+    "MovieFactory",
+    "get_session",
+    "pick_actors",
+    "pick_genres",
+)
 
 GENRES = (
     "Action",
