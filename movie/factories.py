@@ -38,10 +38,7 @@ def pick_genres(movie: Movie, nb: int = 1) -> None:
 
 def pick_actors(movie: Movie, nb: int = 1) -> None:
     """Helper function for actors."""
-    actors = []
-    for i in range(nb):
-        actors.append(FAKER.name())
-    movie.actors = actors
+    movie.actors = [FAKER.name() for _ in range(nb)]
 
 
 def get_session():
