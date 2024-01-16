@@ -112,7 +112,7 @@ class ApiTestCase(unittest.TestCase):
             self.assertIsNone(deleted_item)
 
     def test_update(self) -> None:
-        """ "Test HTTP PUT method."""
+        """Test HTTP PUT method."""
         data = {
             "title": FAKER.sentence(),
             "published": FAKER.pybool(),
