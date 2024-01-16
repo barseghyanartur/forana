@@ -38,7 +38,7 @@ app.include_router(
 
 # Create admin
 ENGINE = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-admin = Admin(ENGINE, title="Movie admin")
+admin = Admin(ENGINE, title="Admin")
 
 # Add view
 admin.add_view(ModelView(Movie))
