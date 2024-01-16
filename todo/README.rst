@@ -5,7 +5,7 @@ forana
 
 .. _Ana Gardi: https://github.com/anagardi/
 
-Simple REST API for `Ana Gardi`_.
+Simple REST TODO API for `Ana Gardi`_.
 
 Installation
 ============
@@ -13,6 +13,7 @@ Installation
 .. code-block:: sh
 
     make install
+    make db-create-tables
 
 Running
 =======
