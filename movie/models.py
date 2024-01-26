@@ -17,7 +17,7 @@ class Movie(SQLModel, table=True):
     year: int
     runtime: int
     genres: List[str] = Field(sa_column=Column(JSON))
-    director: str
+    directors: List[str] = Field(sa_column=Column(JSON))
     actors: List[str] = Field(sa_column=Column(JSON))
     plot: str
     poster_url: str
@@ -30,7 +30,7 @@ class MovieCreate(SQLModel, table=False):
     year: int
     runtime: int
     genres: List[str] = Field(sa_column=Column(JSON))
-    director: str
+    directors: List[str] = Field(sa_column=Column(JSON))
     actors: List[str] = Field(sa_column=Column(JSON))
     plot: str
     poster_url: str
